@@ -1,0 +1,51 @@
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+int main() {
+	stack <int> S;
+	char a;
+    int x;
+    int y;
+    int z;
+	  while (a!='=') {
+		    cin >> a;
+        if ((a!='+')&&(a!='-')&&(a!='*')&&(a!='/')) {
+             x=static_cast<int>(a);
+		         S.push(x);
+             cout<<S.top()<<" ";
+        }
+        else {
+           if (a=='+') {
+              z=S.top();
+              S.pop();
+              y=S.top();
+              S.pop();
+              S.push(y+z);
+           }
+           if (a=='-') {
+              z=S.top();
+              S.pop();
+              y=S.top();
+              S.pop();
+              S.push(y-z);
+           }
+           if (a=='*') {
+              y=S.top();
+              S.pop();
+              y=S.top();
+              S.pop();
+              S.push(y*z);
+           }
+           if (a=='/') {
+              z=S.top();
+              S.pop();
+              y=S.top();
+              S.pop();
+              S.push(y/z);
+           }
+        }
+	}
+	cout<<S.top();
+	return 0;
+}
