@@ -84,7 +84,7 @@ public:
 			f_print(ptr->left);
 		}
 		cout<<ptr->data;
-		if (ptr->right!=NULL) {
+		if (ptr->right!=nullptr) {
 			f_print(ptr->right);
 		}
 	}
@@ -93,23 +93,23 @@ public:
 	}
 	void f_print_raw() {
 		vector <Node*> A;
-		vector <Node*> temp;
-		int p;
+		vector <Node*> t;
+		int k;
 		A.push_back(root);
 		while (A.size()!=0) {
-			p=A.size();
-			for (int i=0; i<p; i++) {
+			k=A.size();
+			for (int i=0; i<k; i++) {
 				cout<<A[i]->left->data<<A[i]->right->data;
-				temp.push_back(A[i]->left);
-				temp.push_back(A[i]->right);
+				t.push_back(A[i]->left);
+				t.push_back(A[i]->right);
 			}
 			A.clear();
-			A=temp;
-			temp.clear();
+			A=t;
+			t.clear();
 		}
-		vector <Node*>tmp=A;
-		A.swap(tmp);
-		vector <Node*> tmp1=temp;
-		temp.swap(tmp1);
+		vector <Node*> m=A;
+		A.swap(t);
+		vector <Node*> m1=t;
+		t.swap(m1);
 	}
 };
