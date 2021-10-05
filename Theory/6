@@ -13,7 +13,7 @@ public:
 	search_tree(int x) {
 		root->data=x;
 	}
-    int height(Node* ptr) {
+        int height(Node* ptr) {
 		if ((ptr->left!=0) && (ptr->right!=0)) {
 			return (1+max(height(ptr->left), height(ptr->right)));
 		}
