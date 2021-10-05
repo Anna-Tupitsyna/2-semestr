@@ -16,15 +16,15 @@ public:
 		Node* new_element;
 		new_element->data=x;
 		Node* ptr=root;
-		int k=0;
-		while (k!=1) {
+		int h=0;
+		while (h!=1) {
 			if (x<ptr->data) {
 				if (ptr->left!=nullptr) {
 					ptr=ptr->left;
 				}
 				else {
 					ptr->left=new_element;
-					k=1;
+					h=1;
 				}
 			}
 			else {
