@@ -93,7 +93,7 @@ public:
 
 		}
 		int i=0;
-		while ((balance(V[i])==1 or balance(V[i])==0 or balance(V[i])==-1) && i<V.size()) {
+		while((balance(V[i])==1 or balance(V[i])==0 or balance(V[i])==-1) && i<V.size()) {
 			i=i+1;
 		}
 		if (abs(balance(V[i]))>1) {
@@ -102,7 +102,7 @@ public:
 					left_m(V[i]);
 				}
 				else {
-					big_left(V[i]);
+					b_left(V[i]);
 				}
 			}
 			else {
@@ -110,7 +110,7 @@ public:
 					right_m(V[i]);
 				}
 				else {
-					big_right(V[i]);
+					b_right(V[i]);
 				}
 			}
 		}
