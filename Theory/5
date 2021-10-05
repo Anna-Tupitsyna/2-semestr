@@ -92,23 +92,23 @@ public:
 		f_print(root);
 	}
 	void f_print_raw() {
-		vector <Node*> A;
+		vector <Node*> V;
 		vector <Node*> t;
 		int k;
-		A.push_back(root);
-		while (A.size()!=0) {
-			k=A.size();
+		V.push_back(root);
+		while (V.size()!=0) {
+			k=V.size();
 			for (int i=0; i<k; i++) {
-				cout<<A[i]->left->data<<A[i]->right->data;
-				t.push_back(A[i]->left);
-				t.push_back(A[i]->right);
+				cout<<V[i]->left->data<<V[i]->right->data;
+				t.push_back(V[i]->left);
+				t.push_back(V[i]->right);
 			}
-			A.clear();
-			A=t;
+			V.clear();
+			V=t;
 			t.clear();
 		}
-		vector <Node*> m=A;
-		A.swap(t);
+		vector <Node*> m=V;
+		V.swap(t);
 		vector <Node*> m1=t;
 		t.swap(m1);
 	}
