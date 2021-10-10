@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+template <class T>
+void swap(T* x, int i, int j) {
+    y=x[i];
+    x[i]=x[j];
+    x[j]=y;
+}
+template <class T>
+void sink(T* x, int a, int b) {  
+    while (2*a<=b) {
+        int j=2*a;
+        if (j<b&&(x[j]<x[j+1])) {
+            j++;
+        }
+        if (x[a]>=x[j]) break;
+        swap(x, a, j);
+        a=j;
+    }
+}
+template <class T>
+void heapsort(T* x, int size) {
+    int b=size;
+    for (int a=b/2; a>=0; a--)
+        sink(x, a, b);
+    while (b>0) {
+        swap(x, 0, b--);
+        sink(x, 0, b);
+    }
+
+}
+int main() {
+    int* x=new int[8];
+    x[0]=1;
+    x[1]=4;
+    x[2]=22;
+    x[3]=31;
+    x[4]=18;
+    x[5]=64;
+    x[6]=0;
+    x[7]=5;
+    int b=8;
+    heapsort(x, 8);
+    for (int i=0; i<b; i++) {
+        cout <<x[i]<<"  ";
+    }
+    delete[] x;
+    return 0;
+}
