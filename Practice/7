@@ -4,111 +4,111 @@ template <class T, int x, int y>
 class Matrix{
 public:
     int length_m=x;
-	int height_n=y;
-	T** A;
+    int height_n=y;
+    T** A;
 public:
-	Matrix(int m, int n) {
-		length_m=m;
-		height_n=n;
-		A=new T*[length_m];
-		for(int i=0; i<m; i++) {
-			A[i]=new T[height_n];
-		}
+    Matrix(int m, int n) {
+	length_m=m;
+	height_n=n;
+	A=new T*[length_m];
+	for(int i=0; i<m; i++) {
+		A[i]=new T[height_n];
 	}
-	~Matrix() {
-		for (int i=0; i<length_m; i++) {
-			delete[] A[i];
-		}
-		delete[] A;
-		delete A;
-		delete& length_m;
-		delete& height_n;
+    }
+    ~Matrix() {
+	for (int i=0; i<length_m; i++) {
+		delete[] A[i];
 	}
-	Matrix(Matrix& M) {
-		length_m=M.width_m;
-		height_n=M.height_n;
-		A=new T*[length_m];
-		for(int i=0; i<length_m; i++) {
-			A[i]=new T[height_n];
-		}
-		for (int i=0; i<length_m; i++) {
-			for (int j=0; j<height_n; j++) {
-				if (M.A[i][j]) {
-					A[i][j]=M.A[i][j];
-				}
+	delete[] A;
+	delete A;
+	delete& length_m;
+	delete& height_n;
+    }
+    Matrix(Matrix& M) {
+	length_m=M.width_m;
+	height_n=M.height_n;
+	A=new T*[length_m];
+	for(int i=0; i<length_m; i++) {
+		A[i]=new T[height_n];
+	}
+	for (int i=0; i<length_m; i++) {
+		for (int j=0; j<height_n; j++) {
+			if (M.A[i][j]) {
+				A[i][j]=M.A[i][j];
 			}
 		}
 	}
-	Matrix operator=(Matrix& M) {
-		length_m=M.length_m;
-		height_n=M.height_n;
-		A=new T*[length_m];
-		for (int i=0; i<length_m; i++) {
-			A[i]=new T[height_n];
-		}
-		for (int i=0; i<length_m; i++) {
-			for (int j=0; j<height_n; j++) {
-				if (M.A[i][j]) {
-					A[i][j]=M.A[i][j];
-				}
+    }
+    Matrix operator=(Matrix& M) {
+	length_m=M.length_m;
+        height_n=M.height_n;
+	A=new T*[length_m];
+	for (int i=0; i<length_m; i++) {
+		A[i]=new T[height_n];
+	}
+	for (int i=0; i<length_m; i++) {
+		for (int j=0; j<height_n; j++) {
+			if (M.A[i][j]) {
+				A[i][j]=M.A[i][j];
 			}
 		}
-		return *this;
 	}
-	friend Matrix sum(Matrix& M, Matrix& N) {
-		if (M.length_m!=N.length_m or M.height_n!=N.height_n){
-			throw invalid_argument("the matrixes have various size");
+	return *this;
+    }
+    friend Matrix sum(Matrix& M, Matrix& N) {
+	if (M.length_m!=N.length_m or M.height_n!=N.height_n){
+		throw invalid_argument("the matrixes have various size");
+	}
+	Matrix C(M.length_m, M.height_n);
+	for (int i=0; i<M.length_m; i++) {
+		for (int j=0; j<M.height_n; j++) {
+			C.A[i][j]=M.A[i][j]+N.A[i][j];
 		}
-		Matrix C(M.length_m, M.height_n);
-		for (int i=0; i<M.length_m; i++) {
-			for (int j=0; j<M.height_n; j++) {
-				C.A[i][j]=M.A[i][j]+N.A[i][j];
+	}
+	return C;
+    }
+    friend Matrix minus(Matrix& M, Matrix& N) {
+        if (M.length_m!=N.length_m or M.height_n!=N.height_n){
+		throw invalid_argument("the matrixes have various size");
+	}
+	Matrix C(M.length_m, M.height_n);
+	for (int i=0; i<M.length_m; i++) {
+		for (int j=0; j<M.height_n; j++) {
+			C.A[i][j]=M.A[i][j]-N.A[i][j];
+		}
+	}
+	return C;
+    }
+    friend Matrix compose(Matrix& M, Matrix& N) {
+	if (M.length_m!=N.height_n) {
+		throw invalid_argument("impossible to compose");
+	}
+	Matrix C(M.height_n, N.length_m);
+	int x;
+	for (int i=0; i<M.height_n; i++) {
+	        for (int j; j<N.length_m; j++) {
+			for (int k=0; k<N.height_n; k++) {
+				x+=(M.A[i][k]*N.A[k][j]);
+				C.A[i][j]=x;
 			}
 		}
-		return C;
 	}
-	friend Matrix minus(Matrix& M, Matrix& N) {
-		if (M.length_m!=N.length_m or M.height_n!=N.height_n){
-			throw invalid_argument("the matrixes have various size");
-		}
-		Matrix C(M.length_m, M.height_n);
-		for (int i=0; i<M.length_m; i++) {
-			for (int j=0; j<M.height_n; j++) {
-				C.A[i][j]=M.A[i][j]-N.A[i][j];
-			}
-		}
-		return C;
-	}
-	friend Matrix compose(Matrix& M, Matrix& N) {
-		if (M.length_m!=N.height_n) {
-			throw invalid_argument("impossible to compose");
-		}
-		Matrix C(M.height_n, N.length_m);
-		int x;
-		for (int i=0; i<M.height_n; i++) {
-			for (int j; j<N.length_m; j++) {
-				for (int k=0; k<N.height_n; k++) {
-					x+=(M.A[i][k]*N.A[k][j]);
-					C.A[i][j]=x;
-				}
-			}
-		}
-		return C;
-	}
-  friend void operator<<(ostream& A, Matrix&M){
-          for (int i=0; i<M.length_m; i++){
-              for (int j=0; j<M.height_n; j++){
+	return C;
+    }
+    friend void operator<<(ostream& A, Matrix&M){
+        for (int i=0; i<M.length_m; i++){
+             for (int j=0; j<M.height_n; j++){
                   cout<<M.A[i][j]<<" ";
-              }
-          }
+             }
+        }
    }
    friend void operator>>(ostream& A, Matrix&M){
-          for (int i=0; i<M.length_m; i++){
-              for (int j=0; j<M.height_n; j++){
-                  cin>>M.A[i][j]>>" ";
-              }
-          }
-	 }
+        for (int i=0; i<M.length_m; i++){
+             for (int j=0; j<M.height_n; j++){
+                 cin>>M.A[i][j]>>" ";
+             }
+        }
+    }
 };
 template<class T, int x>
 void transpose(Matrix<T, x, 1> &M) {
