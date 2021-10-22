@@ -1,0 +1,160 @@
+1) const_cast:
+#include <iostream>
+void test_func_X(const int* in1, const int& in2){
+	int *p;
+	p=const_cast<int*>(in1);
+	*p=33;
+	const_cast<int&>(in2)=55;
+}
+void test_func_Y(int* in1, int& in2){
+	const int *p;
+	p=const_cast<const int*>(in1);
+	*p=33;
+  const_cast<const int&>(in2)=55;
+}
+void test_func_Z(volatile int* in1, volatile int& in2){
+	int *p;
+	p=const_cast<int*>(in1);
+	*p=33;
+	const_cast<int&>(in2)=55;
+}
+void test_func_A(int* in1,  int& in2){
+	volatile int *p;
+	p=const_cast<volatile int*>(in1);
+	*p=33;
+	const_cast<volatile int&>(in2)=55;
+}
+int main(){
+	int x=3,y=5;
+	cout<<x<<" "<<y<<endl;
+	test_func_X(&x,y);
+	cout<<x<<" "<<y<<endl;
+	x=3;
+	y=5;
+	test_func_Y(&x,y);
+	cout<<x<<" "<<y<<endl;
+	test_func_Z(&x,y);
+	cout<<x<<" "<<y<<endl;
+	x=3;
+	y=5;
+	cout<<x<<" "<<y<<endl;
+	test_func_A(&x,y);
+	cout<<x<<" "<<y<<endl;
+	return 0;
+}
+
+2) reinterpret_cast:
+include <iostream>
+struct A{
+};
+struct B{
+};
+struct B_X:B{
+};
+struct B_Y:B{
+};
+int main(){
+	int i=5;
+	double d=111.222;
+	char c='a';
+	int* pi=&i;
+	double* pd=&d;
+	const int* cpi=&i;
+	void* v=nullptr;
+	A T;
+	B R;
+	B_X BX;
+	B_Y BY;
+	A* pT=&T;
+	B* pR=&R;
+	B_X* pBX=&BX;
+	B_Y* pBY=&BY;
+	i=reinterpret_cast<int>(d);
+	d=reinterpret_cast<int>(i);
+	c=reinterpret_cast<char>(pi);
+	v=reinterpret_cast<void*>(c);
+	pi=reinterpret_cast<int*>(v);
+	pi=reinterpret_cast<int*>(cpi);
+	pT=reinterpret_cast<A*>(pR);
+	d=reinterpret_cast<double>(pd);
+	pd=reinterpret_cast<double*>(d);
+	pR=reinterpret_cast<B*>(pBX);
+	pBY=reinterpret_cast<B_Y*>(pR);
+	return 0;
+}
+
+3) static_cast:
+include <iostream>
+struct A{
+};
+struct B{
+};
+struct B_X:B{
+};
+struct B_Y:B{
+};
+int main(){
+	int i=5;
+	double d=111.222;
+	char c='a';
+	int* pi=&i;
+	double* pd=&d;
+	const int* cpi=&i;
+	void* v=nullptr;
+	A T;
+	B R;
+	B_X BX;
+	B_Y BY;
+	A* pT=&T;
+	B* pR=&R;
+	B_X* pBX=&BX;
+	B_Y* pBY=&BY;
+	i=static_cast<int>(d);
+	d=static_cast<int>(i);
+	c=static_cast<char>(pi);
+	v=static_cast<void*>(c);
+	pi=static_cast<int*>(v);
+	pi=static_cast<int*>(cpi);
+	pT=static_cast<A*>(pR);
+	d=static_cast<double>(pd);
+	pd=static_cast<double*>(d);
+  pR=static_cast<B*>(pBX);
+	pBY=static_cast<B_Y*>(pR);
+	return 0;
+}
+
+4) dynamic_cast:
+#include <iostream>
+struct A{
+	virtual void do_some(){};
+};
+struct B{
+	virtual void do_some(){};
+};
+struct B_X:B{
+};
+struct B_Y:B{
+};
+int main(){
+	void* v=nullptr;
+	A T;
+	B R;
+	B_X BX;
+	B_Y BY;
+	A* pT=&T;
+	B* pR=&R;
+	B_X* pBX=&BX;
+	B_Y* pBY=&BY;
+	pT=dynamic_cast<A*>(pR);
+	if (pT==nullptr){	
+		cout<<"FAIL"<<endl;
+	}
+	pR=dynamic_cast<A*>(v);
+	v=dynamic_cast<void*>(pR);
+	pR=dynamic_cast<B*>(pBX);
+	pBY=dynamic_cast<B_Y*>(pR);
+	if (pBY==nullptr){
+		cout<<"FAIL"<<endl;
+	}
+	return 0;
+}
