@@ -10,7 +10,7 @@ void test_func_Y(int* in1, int& in2){
 	const int *p;
 	p=const_cast<const int*>(in1);
 	*p=33;
-  const_cast<const int&>(in2)=55;
+        const_cast<const int&>(in2)=55;
 }
 void test_func_Z(volatile int* in1, volatile int& in2){
 	int *p;
@@ -118,7 +118,7 @@ int main(){
 	pT=static_cast<A*>(pR);
 	d=static_cast<double>(pd);
 	pd=static_cast<double*>(d);
-  pR=static_cast<B*>(pBX);
+        pR=static_cast<B*>(pBX);
 	pBY=static_cast<B_Y*>(pR);
 	return 0;
 }
