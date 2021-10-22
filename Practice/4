@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+class Complex{
+	double re;
+	double im;
+public:
+	Complex(double x, double y){
+		re=x;
+		im=y;  
+	}
+	~Complex(){
+		delete& re;
+		delete& im;
+	}
+	Complex(const Complex& P) {
+    re=P.re;
+		im=P.im;
+	}
+	Complex operator=(const Complex& P){
+		if(re){
+			delete& re;
+		}
+		if(im){
+			delete& im;
+		}
+		re=P.re;
+		im=P.im;
+		return *this;
+	}
+	friend Complex operator+(const Complex& P1, const Complex& P2){
+		Complex X(P1.re+P2.re, P1.im+P2.im);
+		return X;
+	}
+	friend Complex operator*(const Complex& P1, const Complex& P2) {
+		Complex X(P1.re*P2.re-P1.im*P2.im, P1.re*P2.im+P1.im*P2.re);
+		return X;
+	}
+	friend ostream& operator<<(ostream& X, Complex Y) {
+		return X<<Y.re<<"+"<<Y.im <<"i";
+	}
+	friend istream& operator>>(istream& X, Complex Y) {
+		return X>>Y.re>>Y.im;
+	}
+};
+int main() {
+	int x, y, z, d;
+	cin>>x>>y>>z>>d;
+	Complex X(x, y);
+	Complex Y(z, d);
+	Complex Z=X;
+	cout<<Z;
+  cout<<X;
+	cout<<Y;
+	cout<<X+Y;
+	cout<<Y*Z;
+	return 0;
+}
