@@ -14,7 +14,7 @@ public:
 		delete& im;
 	}
 	Complex(const Complex& P) {
-        re=P.re;
+                    re=P.re;
 		    im=P.im;
 	}
 	Complex operator=(const Complex& P) {
@@ -60,7 +60,7 @@ int main() {
 	{
 		Z=X+Y;
 	}
-    catch (invalid_argument& a)
+        catch (invalid_argument& a)
 	{
 		cerr<<a.what()<<endl;
 		return -1;
