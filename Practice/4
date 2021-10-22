@@ -13,7 +13,7 @@ public:
 		delete& im;
 	}
 	Complex(const Complex& P) {
-    re=P.re;
+                re=P.re;
 		im=P.im;
 	}
 	Complex operator=(const Complex& P){
@@ -49,7 +49,7 @@ int main() {
 	Complex Y(z, d);
 	Complex Z=X;
 	cout<<Z;
-  cout<<X;
+        cout<<X;
 	cout<<Y;
 	cout<<X+Y;
 	cout<<Y*Z;
