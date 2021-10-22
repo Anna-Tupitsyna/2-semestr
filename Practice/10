@@ -1,0 +1,26 @@
+#include <iostream>
+using std::istream;
+using std::ostream;
+template<typename T>
+class binary{
+    T t;
+public:
+    binary() : t() {}
+    binary(T const& t) : t(t) {}
+    operator T&(){
+        return t;
+    }
+    operator T const&() const{
+        return t;
+    }
+};
+template<typename T>
+istream & operator>>(istream& s, binary<T>& t) {
+    s.read(reinterpret_cast<char*>(&static_cast<T&>(t)), sizeof(T));
+    return s;
+}
+template<typename T>
+ostream& operator<<(ostream& o, binary<T> const& t) {
+    o.write(reinterpret_cast<char const *>(&static_cast<T const&>(t)), sizeof(T));
+    return o;
+}
