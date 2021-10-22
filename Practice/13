@@ -1,0 +1,28 @@
+public class BinaryTreePreorderIterator : BinaryTreeIterator{
+        public BinaryTreePreorderIterator(BinaryTreeNode aRoot){
+            Current=aRoot;
+            if (Current==null){
+                return;
+            }
+            NodeStack.Push(null);
+        }
+        public override bool Next(){
+            if (Current==null){
+                return false;
+            }
+            if (Current.Right!=null){
+                NodeStack.Push(Current.Right);
+            }
+            if (Current.Left!=null){
+                Current=Current.Left;
+            }
+            else{
+                Current=NodeStack.Pop();
+            }
+            return HasNext();
+        }
+        private Stack<BinaryTreeNode> NodeStack{
+            get { return mNodeStack; }
+        }
+        private readonly Stack<BinaryTreeNode> mNodeStack=new Stack<BinaryTreeNode>();
+}
